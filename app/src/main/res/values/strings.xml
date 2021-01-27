@@ -2,10 +2,13 @@
     <string name="app_name">Manga Geek</string>
     <string name="tvcategory">Top Adventure</string>
     <string name="description_ivManga">Imagen manga</string>
-    <string name="more">more...</string>
+    <string name="more">more…</string>
     <string name="buscar">Buscar</string>
     <string name="favoritos">Favoritos</string>
     <string name="example_textView_template">Dragon Ball Z</string>
     <string name="menu_icon_favorito">Favorito</string>
     <string name="menu_icon_info">Info</string>
+    <string name="type">Type: %1$s</string>
+    <string name="example_chapter_template">Chapter 7</string>
+
 </resources>

@@ -7,15 +7,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simplemangaapp.Manga
-import com.example.simplemangaapp.MangaPrincipal
 import com.example.simplemangaapp.R
 import com.squareup.picasso.Picasso
 
 class AdapterCustom(items: ArrayList<Manga>, var listener: ClickListener) :
     RecyclerView.Adapter<AdapterCustom.ViewHolder>() {
 
-    var items: ArrayList<Manga>? = null
-    var viewHolder: ViewHolder? = null
+    private var items: ArrayList<Manga>? = null
+    private var viewHolder: ViewHolder? = null
 
     init {
         this.items = items
@@ -39,7 +38,7 @@ class AdapterCustom(items: ArrayList<Manga>, var listener: ClickListener) :
         val item = items?.get(position)
 
         holder.nombre?.text = item?.title
-        holder.capitulo?.text = item?.chapter
+        holder.capitulo?.text = item?.chapter?.replace(item.title!!, "Chapter")
         Picasso.get().load(item?.image).into(holder.imagen)
 
 
@@ -47,10 +46,10 @@ class AdapterCustom(items: ArrayList<Manga>, var listener: ClickListener) :
 
     class ViewHolder(vista: View, listener: ClickListener) : RecyclerView.ViewHolder(vista),
         View.OnClickListener {
-        var view: View = vista
+        private var view: View = vista
         var nombre: TextView? = null
         var imagen: ImageView? = null
-        var capitulo:TextView? = null
+        var capitulo: TextView? = null
 
         private var clickListener: ClickListener? = null
 
