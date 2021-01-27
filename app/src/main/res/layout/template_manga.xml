@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/border"
+    android:layout_margin="5dp"
+    android:elevation="5dp"
+    android:padding="2dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/ivMangaTemplateRV"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:src="@drawable/dbz"
+            android:contentDescription="@string/description_ivManga" />
+
+    <TextView
+        android:id="@+id/tvMangaName"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/example_textView_template" />
+
+    <TextView
+        android:id="@+id/tvChapter"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chapter 7" />
+
+
+</LinearLayout>
