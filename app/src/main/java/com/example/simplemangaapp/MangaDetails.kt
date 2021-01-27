@@ -28,4 +28,7 @@ class MangaDetails {
     @Selector("#show")
     var summary: String? = null
 
+    @Selector(".chapter_list>li")
+    var listaCapitulos:ArrayList<Chapter>? = null
+
 }

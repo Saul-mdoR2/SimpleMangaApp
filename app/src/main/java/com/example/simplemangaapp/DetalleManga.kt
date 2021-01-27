@@ -1,11 +1,18 @@
 package com.example.simplemangaapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.simplemangaapp.recyclerViewCapitulos.AdapterCustomChapters
+import com.example.simplemangaapp.recyclerViewCapitulos.ClickListenerChapter
+import com.example.simplemangaapp.recyclerViewPrincipal.AdapterCustom
 import com.squareup.picasso.Picasso
 import pl.droidsonroids.jspoon.HtmlAdapter
 import pl.droidsonroids.jspoon.Jspoon
@@ -21,6 +28,12 @@ class DetalleManga : AppCompatActivity() {
     private var tvType: TextView? = null
     private var ivManga: ImageView? = null
     private var tvSummary: TextView? = null
+    private var rvChapters:RecyclerView? = null
+    var listChapters:ArrayList<Chapter>? = null
+
+    companion object{
+        val CAPITULO = "com.example.simplemangaapp.DetalleManga"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +42,8 @@ class DetalleManga : AppCompatActivity() {
         val mangaActual = intent.getSerializableExtra(MainActivity.TAG) as Manga
 
         initToolbar(mangaActual.title!!)
+
+        listChapters = ArrayList()
 
         val network = Network(this)
 
@@ -78,6 +93,8 @@ class DetalleManga : AppCompatActivity() {
         tvType = findViewById(R.id.tvType)
         ivManga = findViewById(R.id.ivManga)
         tvSummary = findViewById(R.id.tvSummary)
+
+        rvChapters = findViewById(R.id.rvChapters)
     }
 
     fun asignarValores(mangaDetails: MangaDetails) {
@@ -88,6 +105,27 @@ class DetalleManga : AppCompatActivity() {
         tvType?.text = resources.getString(R.string.type, mangaDetails.type?.replace(":", ": "))
         Picasso.get().load(mangaDetails.image).into(ivManga)
         tvSummary?.text = mangaDetails.summary?.replace("HIDE", "")
+
+        listChapters = mangaDetails.listaCapitulos
+
+        initAdaptador(listChapters!!)
+
+    }
+
+    fun initAdaptador(lista:ArrayList<Chapter>){
+        val linearLayoutManager = LinearLayoutManager(this)
+        rvChapters?.setHasFixedSize(true)
+        rvChapters?.layoutManager = linearLayoutManager
+
+        val adapter = AdapterCustomChapters(lista, object :ClickListenerChapter{
+            override fun onClick(vista: View, index: Int) {
+                val intent = Intent(applicationContext, Capitulo::class.java)
+                val capitulo = lista[index]
+                intent.putExtra(CAPITULO,capitulo)
+                startActivity(intent)
+            }
+        })
+        rvChapters?.adapter = adapter
     }
 }
 
