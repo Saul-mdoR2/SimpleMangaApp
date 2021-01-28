@@ -1,4 +1,4 @@
-package com.example.simplemangaapp
+package com.example.simplemangaapp.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,11 +9,15 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.simplemangaapp.R
+import com.example.simplemangaapp.models.Chapter
+import com.example.simplemangaapp.models.Manga
+import com.example.simplemangaapp.models.MangaDetails
 import com.example.simplemangaapp.recyclerViewCapitulos.AdapterCustomChapters
 import com.example.simplemangaapp.recyclerViewCapitulos.ClickListenerChapter
-import com.example.simplemangaapp.recyclerViewPrincipal.AdapterCustom
+import com.example.simplemangaapp.utilities.HttpResponse
+import com.example.simplemangaapp.utilities.Network
 import com.squareup.picasso.Picasso
 import pl.droidsonroids.jspoon.HtmlAdapter
 import pl.droidsonroids.jspoon.Jspoon
@@ -33,7 +37,7 @@ class DetalleManga : AppCompatActivity() {
     var listChapters:ArrayList<Chapter>? = null
 
     companion object{
-        val CAPITULO = "com.example.simplemangaapp.DetalleManga"
+        val CAPITULO = "com.example.simplemangaapp.activities.DetalleManga"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,7 +1,7 @@
-package com.example.simplemangaapp
+package com.example.simplemangaapp.models
 
+import com.example.simplemangaapp.models.Manga
 import pl.droidsonroids.jspoon.annotation.Selector
-import java.lang.NullPointerException
 
 class MangaPrincipal {
     @Selector(".manga_pic_list>li")

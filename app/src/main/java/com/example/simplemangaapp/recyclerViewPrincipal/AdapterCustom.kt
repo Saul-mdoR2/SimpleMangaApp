@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.simplemangaapp.Manga
+import com.example.simplemangaapp.models.Manga
 import com.example.simplemangaapp.R
 import com.squareup.picasso.Picasso
 

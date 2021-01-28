@@ -3,10 +3,9 @@ package com.example.simplemangaapp.recyclerViewCapitulos
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.simplemangaapp.Chapter
+import com.example.simplemangaapp.models.Chapter
 import com.example.simplemangaapp.R
 
 class AdapterCustomChapters(items: ArrayList<Chapter>, var listenerChapter: ClickListenerChapter) :

@@ -10,5 +10,6 @@
     <string name="menu_icon_info">Info</string>
     <string name="type">Type: %1$s</string>
     <string name="example_chapter_template">Chapter 7</string>
+    <string name="description_chapter_manga">Página del manga</string>
 
 </resources>

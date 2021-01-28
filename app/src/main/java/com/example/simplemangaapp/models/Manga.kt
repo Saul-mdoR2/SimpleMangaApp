@@ -1,4 +1,4 @@
-package com.example.simplemangaapp
+package com.example.simplemangaapp.models
 
 import pl.droidsonroids.jspoon.annotation.Selector
 import java.io.Serializable

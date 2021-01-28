@@ -1,16 +1,20 @@
-package com.example.simplemangaapp
+package com.example.simplemangaapp.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.simplemangaapp.R
+import com.example.simplemangaapp.models.Manga
+import com.example.simplemangaapp.models.MangaPrincipal
 import com.example.simplemangaapp.recyclerViewPrincipal.AdapterCustom
 import com.example.simplemangaapp.recyclerViewPrincipal.ClickListener
+import com.example.simplemangaapp.utilities.HttpResponse
+import com.example.simplemangaapp.utilities.Network
 import pl.droidsonroids.jspoon.HtmlAdapter
 import pl.droidsonroids.jspoon.Jspoon
 
@@ -23,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private var listaMangas:ArrayList<Manga>? = null
 
     companion object {
-        const val TAG = "com.example.simplemangaapp.MainActivity"
+        const val TAG = "com.example.simplemangaapp.activities.MainActivity"
     }
 
     @Suppress("DEPRECATION")
@@ -52,8 +56,9 @@ class MainActivity : AppCompatActivity() {
             object : HttpResponse {
                 override fun httpRespuestaExitosa(response: String) {
                    val jspoon:Jspoon = Jspoon.create()
-                   val htmlAdapter:HtmlAdapter<MangaPrincipal> = jspoon.adapter(MangaPrincipal::class.java)
-                    val mangaPrincipal:MangaPrincipal = htmlAdapter.fromHtml(response)
+                   val htmlAdapter:HtmlAdapter<MangaPrincipal> = jspoon.adapter(
+                       MangaPrincipal::class.java)
+                    val mangaPrincipal: MangaPrincipal = htmlAdapter.fromHtml(response)
                     for (manga in mangaPrincipal.listMangas!!){
                         listaMangas!!.add(manga)
                     }

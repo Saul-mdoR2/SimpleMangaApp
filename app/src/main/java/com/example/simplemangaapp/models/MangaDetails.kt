@@ -1,5 +1,6 @@
-package com.example.simplemangaapp
+package com.example.simplemangaapp.models
 
+import com.example.simplemangaapp.models.Chapter
 import pl.droidsonroids.jspoon.annotation.Selector
 
 

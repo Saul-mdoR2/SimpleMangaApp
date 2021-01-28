@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DetalleManga">
+    tools:context=".activities.DetalleManga">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarDetalle"
@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/celeste"
+        android:theme="@style/ToolbarTheme"
         android:elevation="4dp" />
 
     <LinearLayout

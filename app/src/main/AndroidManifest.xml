@@ -12,11 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleMangaApp">
-        <activity android:name=".Capitulo" />
+        <activity android:parentActivityName=".activities.DetalleManga" android:name=".activities.Capitulo" />
         <activity
-            android:name=".DetalleManga"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity">
+            android:name=".activities.DetalleManga"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
