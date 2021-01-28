@@ -1,7 +1,9 @@
 package com.example.simplemangaapp.activities
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.simplemangaapp.R
@@ -15,21 +17,25 @@ import pl.droidsonroids.jspoon.Jspoon
 
 class Capitulo : AppCompatActivity() {
     private var toolbar: Toolbar? = null
-    private var ivPagina:ImageView? = null
+    private var ivPagina: ImageView? = null
+    private var network:Network? = null
+    private var pagina:Page? = null
+    private var capitulo:Chapter? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_capitulo)
 
-        val network = Network(this)
+        network = Network(this)
 
-        val capitulo = intent.getSerializableExtra(DetalleManga.CAPITULO) as Chapter
+        capitulo = intent.getSerializableExtra(DetalleManga.CAPITULO) as Chapter
 
-        initToolbar(capitulo.titleChapter!!)
+        initToolbar(capitulo!!.titleChapter!!)
         ivPagina = findViewById(R.id.ivPagina)
 
-        network.httpRequest(
-            "http://www.mangatown.com${capitulo.linkChapter}",
+        network!!.httpRequest(
+            "http://www.mangatown.com${capitulo!!.linkChapter}",
             applicationContext,
             object : HttpResponse {
                 override fun httpRespuestaExitosa(response: String) {
@@ -37,9 +43,9 @@ class Capitulo : AppCompatActivity() {
                     val jspoon: Jspoon = Jspoon.create()
                     val htmlAdapter: HtmlAdapter<Page> =
                         jspoon.adapter(Page::class.java)
-                    val pagina: Page = htmlAdapter.fromHtml(response)
+                    pagina = htmlAdapter.fromHtml(response)
 
-                    val enlacePagina = "http:${pagina.pagina}"
+                    val enlacePagina = "http:${pagina!!.paginaActual}"
                     Picasso.get().load(enlacePagina).into(ivPagina)
                 }
             })
@@ -59,4 +65,37 @@ class Capitulo : AppCompatActivity() {
 
         actionbar?.setDisplayHomeAsUpEnabled(true)
     }
+
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            Toast.makeText(this, "Bajó volumen", Toast.LENGTH_SHORT).show()
+            return true
+        }
+
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            network!!.httpRequest(
+                "http://www.mangatown.com${capitulo!!.linkChapter+pagina?.paginaSiguiente}",
+                applicationContext,
+                object : HttpResponse {
+                    override fun httpRespuestaExitosa(response: String) {
+
+                        val jspoon: Jspoon = Jspoon.create()
+                        val htmlAdapter: HtmlAdapter<Page> =
+                            jspoon.adapter(Page::class.java)
+                        pagina = htmlAdapter.fromHtml(response)
+
+                        val enlacePagina = "http:${pagina!!.paginaActual}"
+                        Picasso.get().load(enlacePagina).into(ivPagina)
+                    }
+                })
+
+
+            return true
+        }
+
+        return super.onKeyDown(keyCode, event)
+    }
+
+
 }
