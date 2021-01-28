@@ -12,10 +12,11 @@
         <ImageView
             android:id="@+id/ivMangaTemplateRV"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginStart="2dp"
             android:layout_marginEnd="2dp"
             android:src="@drawable/dbz"
+            android:scaleType="centerCrop"
             android:contentDescription="@string/description_ivManga" />
 
     <TextView

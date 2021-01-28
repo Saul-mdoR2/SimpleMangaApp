@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simplemangaapp.recyclerViewCapitulos.AdapterCustomChapters
@@ -113,7 +114,7 @@ class DetalleManga : AppCompatActivity() {
     }
 
     fun initAdaptador(lista:ArrayList<Chapter>){
-        val linearLayoutManager = LinearLayoutManager(this)
+        val linearLayoutManager = GridLayoutManager(this, 3)
         rvChapters?.setHasFixedSize(true)
         rvChapters?.layoutManager = linearLayoutManager
 

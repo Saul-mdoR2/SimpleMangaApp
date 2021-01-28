@@ -43,7 +43,7 @@ class AdapterCustomChapters(items: ArrayList<Chapter>, var listenerChapter: Clic
         View.OnClickListener {
         private var view: View = vista
          var tvTitleChapter:TextView? = null
-         var tvReleaseDate:TextView? = null
+        var tvReleaseDate:TextView? = null
 
 
         private var clickListener: ClickListenerChapter? = null
@@ -51,7 +51,7 @@ class AdapterCustomChapters(items: ArrayList<Chapter>, var listenerChapter: Clic
         init {
 
             tvTitleChapter = view.findViewById(R.id.tvTitleChapter) as TextView
-            tvReleaseDate = view.findViewById(R.id.tvReleaseDate) as TextView
+           tvReleaseDate = view.findViewById(R.id.tvReleaseDate) as TextView
             clickListener = listener
 
             vista.setOnClickListener(this)
