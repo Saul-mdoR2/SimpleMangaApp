@@ -9,6 +9,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simplemangaapp.R
+import com.example.simplemangaapp.databinding.ActivityDetalleMangaBinding
+import com.example.simplemangaapp.databinding.ActivityMainBinding
 import com.example.simplemangaapp.models.Manga
 import com.example.simplemangaapp.models.MangaPrincipal
 import com.example.simplemangaapp.recyclerViewPrincipal.AdapterCustom
@@ -21,29 +23,28 @@ import pl.droidsonroids.jspoon.Jspoon
 
 class MainActivity : AppCompatActivity() {
 
-    private var rvlist: RecyclerView? = null
     private var adaptador: AdapterCustom? = null
-    private var toolbar: Toolbar? = null
     private var listaMangas:ArrayList<Manga>? = null
 
     companion object {
         const val TAG = "com.example.simplemangaapp.activities.MainActivity"
     }
 
+    private lateinit var model:ActivityMainBinding
     @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        rvlist = findViewById(R.id.rvLista)
+        model = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(model.root)
 
-        toolbar = findViewById(R.id.toolbarPrincipal)
-        toolbar?.setTitleTextColor(resources.getColor(R.color.white))
-        setSupportActionBar(toolbar)
+
+        model.toolbarPrincipal.setTitleTextColor(resources.getColor(R.color.white))
+        setSupportActionBar(model.toolbarPrincipal)
 
         val gridLayoutManager = GridLayoutManager(this, 3)
-        rvlist?.setHasFixedSize(true)
-        rvlist?.layoutManager = gridLayoutManager
+        model.rvLista.setHasFixedSize(true)
+        model.rvLista.layoutManager = gridLayoutManager
 
 
         listaMangas = ArrayList()
@@ -87,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                 }
             )
 
-        rvlist?.adapter = adaptador
+        model.rvLista.adapter = adaptador
     }
 
 
