@@ -39,7 +39,7 @@ class AdapterCustom(items: ArrayList<Manga>, var listener: ClickListener) :
 
         holder.nombre?.text = item?.title
         holder.capitulo?.text = item?.chapter?.replace(item.title!!, "Chapter")
-        Picasso.get().load(item?.image).into(holder.imagen)
+        Picasso.get().load(item?.image).placeholder(R.drawable.manga_cover).into(holder.imagen)
 
 
     }

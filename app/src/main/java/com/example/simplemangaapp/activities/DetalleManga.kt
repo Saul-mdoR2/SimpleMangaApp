@@ -84,7 +84,7 @@ class DetalleManga : AppCompatActivity() {
         model.tvArtist.text = mangaDetails.artist?.replace(":", ": ")
         model.tvType.text =
             resources.getString(R.string.type, mangaDetails.type?.replace(":", ": "))
-        Picasso.get().load(mangaDetails.image).into(model.ivManga)
+        Picasso.get().load(mangaDetails.image).placeholder(R.drawable.manga_cover).into(model.ivManga)
         model.tvSummary.text = mangaDetails.summary?.replace("HIDE", "")
 
         if (mangaDetails.listaCapitulos != null) {

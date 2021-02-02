@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    tools:context=".activities.DetalleManga"
     android:orientation="vertical"
-    tools:context=".activities.DetalleManga">
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarDetalle"
         style="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -17,80 +17,94 @@
         android:elevation="4dp"
         android:theme="@style/ToolbarTheme" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:alpha="0.80"
-        android:background="@color/black"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/ivManga"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_weight="1"
-            android:contentDescription="@string/description_ivManga" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="5dp">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvGenre"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:alpha="0.80"
+                android:background="@color/black"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ivManga"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/description_ivManga" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/tvGenre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvAuthor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvArtist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/tvType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
 
             <TextView
-                android:id="@+id/tvAuthor"
+                android:id="@+id/tvSummary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:background="@color/backgroud_summary"
+                android:padding="5dp"
+                android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/tvArtist"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvChapters"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:layout_height="250dp"
+                android:layout_marginTop="5dp" />
 
-            <TextView
-                android:id="@+id/tvStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-
-
-            <TextView
-                android:id="@+id/tvType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
 
         </LinearLayout>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvSummary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/backgroud_summary"
-        android:padding="5dp"
-        android:textSize="13sp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvChapters"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="5dp" />
-
+    </ScrollView>
 
 </LinearLayout>
+

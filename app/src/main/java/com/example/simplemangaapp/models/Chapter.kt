@@ -10,4 +10,5 @@ class Chapter:Serializable {
     var date:String? = null
     @Selector(value = "a", attr = "href")
     var linkChapter:String? = null
+
 }

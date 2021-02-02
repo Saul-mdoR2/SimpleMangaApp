@@ -12,4 +12,7 @@ class Page {
     @Selector(value = ".next_page", attr = "href")
     var paginaSiguiente:String? = null
 
+    @Selector(".page_select>select>option[selected]")
+    var currentPage:String? = null
+
 }

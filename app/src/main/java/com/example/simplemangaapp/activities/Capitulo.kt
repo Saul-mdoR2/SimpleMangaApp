@@ -75,6 +75,7 @@ class Capitulo : AppCompatActivity() {
                     pagina = htmlAdapter.fromHtml(response)
                     val enlacePagina = "http:${pagina!!.paginaActual}"
                     Picasso.get().load(enlacePagina).into(model.ivPagina)
+                    model.tvPaginaActual.text = pagina!!.currentPage
                 }
             })
     }
@@ -82,6 +83,7 @@ class Capitulo : AppCompatActivity() {
     @Suppress("DEPRECATION")
     fun initToolbar(titleManga: String) {
         model.toolbarCapitulo.setTitleTextColor(resources.getColor(R.color.white))
+
         model.toolbarCapitulo.title = titleManga
         setSupportActionBar(model.toolbarCapitulo)
         model.toolbarCapitulo.setNavigationOnClickListener {
