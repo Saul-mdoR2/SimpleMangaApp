@@ -11,5 +11,5 @@
     <string name="type">Type: %1$s</string>
     <string name="example_chapter_template">Chapter 7</string>
     <string name="description_chapter_manga">Página del manga</string>
-
+    <string name="CurrentPage">%1$s / %2$s</string>
 </resources>

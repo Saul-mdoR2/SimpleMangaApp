@@ -22,25 +22,19 @@
 
     <ImageView
         android:id="@+id/ivPagina"
-        android:src="@drawable/dbz"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="480dp"
         android:contentDescription="@string/description_chapter_manga"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+         />
 
     <TextView
         android:id="@+id/tvPaginaActual"
         android:background="@color/celeste"
         android:textColor="@color/white"
         android:textAlignment="center"
-        android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@id/ivPagina"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="15sp"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>

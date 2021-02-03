@@ -75,7 +75,8 @@ class Capitulo : AppCompatActivity() {
                     pagina = htmlAdapter.fromHtml(response)
                     val enlacePagina = "http:${pagina!!.paginaActual}"
                     Picasso.get().load(enlacePagina).into(model.ivPagina)
-                    model.tvPaginaActual.text = pagina!!.currentPage
+                    val totalPages = pagina!!.total!!.count() -1
+                    model.tvPaginaActual.text = resources.getString(R.string.CurrentPage, pagina!!.currentPage, totalPages.toString())
                 }
             })
     }
