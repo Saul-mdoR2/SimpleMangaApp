@@ -2,6 +2,9 @@ package com.example.simplemangaapp.activities
 
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.simplemangaapp.R
@@ -14,7 +17,7 @@ import com.squareup.picasso.Picasso
 import pl.droidsonroids.jspoon.HtmlAdapter
 import pl.droidsonroids.jspoon.Jspoon
 
-class Capitulo : AppCompatActivity() {
+class Capitulo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private var network: Network? = null
     private var pagina: Page? = null
     private var capitulo: Chapter? = null
@@ -27,12 +30,9 @@ class Capitulo : AppCompatActivity() {
 
         model = ActivityCapituloBinding.inflate(layoutInflater)
         setContentView(model.root)
-
         network = Network(this)
-
         capitulo = intent.getSerializableExtra(DetalleManga.CAPITULO) as Chapter
         initToolbar(capitulo!!.titleChapter!!)
-
         url = "http://www.mangatown.com${capitulo!!.linkChapter}"
         changeImage(url)
     }
@@ -44,6 +44,7 @@ class Capitulo : AppCompatActivity() {
             } else {
                 url = "http://www.mangatown.com${pagina?.paginaAnterior}"
             }
+
             changeImage(url)
             return true
         }
@@ -73,12 +74,46 @@ class Capitulo : AppCompatActivity() {
                     val htmlAdapter: HtmlAdapter<Page> =
                         jspoon.adapter(Page::class.java)
                     pagina = htmlAdapter.fromHtml(response)
-                    val enlacePagina = "http:${pagina!!.paginaActual}"
+                    val enlacePagina = "http:${pagina!!.rutaImagenActual}"
                     Picasso.get().load(enlacePagina).into(model.ivPagina)
-                    val totalPages = pagina!!.total!!.count() -1
-                    model.tvPaginaActual.text = resources.getString(R.string.CurrentPage, pagina!!.currentPage, totalPages.toString())
+                    //val totalPages = pagina!!.total!!.count() -1
+                    val totalPages = pagina!!.total!!.count() - 1
+                    model.tvPaginaActual.text = resources.getString(
+                        R.string.CurrentPage,
+                        pagina!!.currentPage?.replace("0", ""),
+                        totalPages.toString()
+                    )
+                    initSpinnet(pagina!!)
                 }
             })
+    }
+
+    fun initSpinnet(pagina: Page) {
+        val numChapters = ArrayList<String>()
+        for (page in pagina.total!!) {
+            numChapters.add(page.numPage!!)
+        }
+        numChapters.removeAt(numChapters.count() - 1)
+        val adapter =
+            ArrayAdapter(applicationContext, android.R.layout.simple_list_item_1, numChapters)
+        model.listPages.adapter = adapter
+        val posicion = pagina.currentPage!!.toInt() - 1
+        model.listPages.post { model.listPages.setSelection(posicion) }
+        model.listPages.onItemSelectedListener = this
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val seleccionado = pagina?.total!!.first { totalPages ->
+            val numeroSeleccionado = parent?.getItemAtPosition(position)
+            totalPages.numPage == numeroSeleccionado
+        }
+
+        if (pagina!!.currentPage != seleccionado.numPage) {
+            changeImage("http://www.mangatown.com${seleccionado.linkPage!!}")
+        }
     }
 
     @Suppress("DEPRECATION")
@@ -94,5 +129,6 @@ class Capitulo : AppCompatActivity() {
 
         actionbar?.setDisplayHomeAsUpEnabled(true)
     }
+
 
 }
