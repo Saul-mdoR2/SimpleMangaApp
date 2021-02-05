@@ -27,6 +27,7 @@ class DetalleManga : AppCompatActivity() {
 
     companion object {
         const val CAPITULO = "com.example.simplemangaapp.activities.DetalleManga"
+        var lista = ArrayList<Chapter>()
     }
 
 
@@ -84,11 +85,13 @@ class DetalleManga : AppCompatActivity() {
         model.tvArtist.text = mangaDetails.artist?.replace(":", ": ")
         model.tvType.text =
             resources.getString(R.string.type, mangaDetails.type?.replace(":", ": "))
-        Picasso.get().load(mangaDetails.image).placeholder(R.drawable.manga_cover).into(model.ivManga)
+        Picasso.get().load(mangaDetails.image).placeholder(R.drawable.manga_cover)
+            .into(model.ivManga)
         model.tvSummary.text = mangaDetails.summary?.replace("HIDE", "")
 
         if (mangaDetails.listaCapitulos != null) {
             initAdaptador(mangaDetails.listaCapitulos!!)
+            lista = mangaDetails.listaCapitulos!!
         } else {
             Toast.makeText(
                 this,

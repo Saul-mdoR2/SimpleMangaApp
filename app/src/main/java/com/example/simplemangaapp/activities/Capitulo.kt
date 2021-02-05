@@ -37,12 +37,111 @@ class Capitulo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         changeImage(url)
     }
 
+    private fun changeImage(url: String) {
+        network!!.httpRequest(
+            url,
+            applicationContext,
+            object : HttpResponse {
+                override fun httpRespuestaExitosa(response: String) {
+                    val jspoon: Jspoon = Jspoon.create()
+                    val htmlAdapter: HtmlAdapter<Page> =
+                        jspoon.adapter(Page::class.java)
+                    pagina = htmlAdapter.fromHtml(response)
+                    val enlacePagina = "http:${pagina!!.rutaImagenActual}"
+                    Picasso.get().load(enlacePagina).into(model.ivPagina)
+                    val totalPages = pagina!!.total!!.count() - 1
+                    model.tvPaginaActual.text = resources.getString(
+                        R.string.CurrentPage,
+                        pagina!!.currentPage?.replace("0", ""),
+                        totalPages.toString()
+                    )
+                    initSpinners(pagina!!)
+                }
+            })
+    }
+
+    fun initSpinners(pagina: Page) {
+        val numChapters = ArrayList<String>()
+        for (page in pagina.total!!) {
+            numChapters.add(page.numPage!!)
+        }
+        numChapters.removeAt(numChapters.count() - 1)
+        val adapterPages =
+            ArrayAdapter(applicationContext, R.layout.spinner_layout, numChapters)
+        model.listPages.adapter = adapterPages
+
+
+        val titlesChapter = ArrayList<String>()
+        for (chapter in DetalleManga.lista) {
+            titlesChapter.add(chapter.titleChapter!!)
+        }
+        val adapterChapters =
+            ArrayAdapter(applicationContext, R.layout.spinner_layout, titlesChapter)
+        model.listChapters.adapter = adapterChapters
+
+        // CAMBIAR VALUE DEL SPINNER DEPENDIENDO DEL CAPITULO Y DE LA PAGINA ACTUAL
+        val posicionPage = pagina.currentPage!!.toInt() - 1
+        model.listPages.post { model.listPages.setSelection(posicionPage) }
+
+        val posicionCapitulo: Int = adapterChapters.getPosition(capitulo!!.titleChapter)
+        model.listChapters.post { model.listChapters.setSelection(posicionCapitulo) }
+
+
+        model.listPages.onItemSelectedListener = this
+        model.listChapters.onItemSelectedListener = this
+    }
+
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        when (parent) {
+            model.listPages -> {
+                val seleccionado = pagina?.total!!.first { totalPages ->
+                    val numeroSeleccionado = parent.getItemAtPosition(position)
+                    totalPages.numPage == numeroSeleccionado
+                }
+                if (pagina!!.currentPage != seleccionado.numPage) {
+                    changeImage("http://www.mangatown.com${seleccionado.linkPage!!}")
+                }
+            }
+            model.listChapters -> {
+                val seleccionado = DetalleManga.lista.first { chapter ->
+                    val capituloSeleccionado = parent.getItemAtPosition(position)
+                    chapter.titleChapter == capituloSeleccionado
+                }
+
+                if (capitulo!!.titleChapter != seleccionado.titleChapter) {
+                    capitulo = seleccionado
+                    model.toolbarCapitulo.title = seleccionado.titleChapter
+                    changeImage("http://www.mangatown.com${seleccionado.linkChapter}")
+                }
+            }
+        }
+
+    }
+
+    @Suppress("DEPRECATION")
+    fun initToolbar(titleManga: String) {
+        model.toolbarCapitulo.setTitleTextColor(resources.getColor(R.color.white))
+
+        model.toolbarCapitulo.title = titleManga
+        setSupportActionBar(model.toolbarCapitulo)
+        model.toolbarCapitulo.setNavigationOnClickListener {
+            finish()
+        }
+        val actionbar = supportActionBar
+
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+    }
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-            if (pagina?.paginaAnterior!!.contains("html")) {
-                url = "http://www.mangatown.com${capitulo!!.linkChapter + pagina?.paginaAnterior}"
+            url = if (pagina?.paginaAnterior!!.contains("html")) {
+                "http://www.mangatown.com${capitulo!!.linkChapter + pagina?.paginaAnterior}"
             } else {
-                url = "http://www.mangatown.com${pagina?.paginaAnterior}"
+                "http://www.mangatown.com${pagina?.paginaAnterior}"
             }
 
             changeImage(url)
@@ -62,72 +161,6 @@ class Capitulo : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
 
         return super.onKeyDown(keyCode, event)
-    }
-
-    fun changeImage(url: String) {
-        network!!.httpRequest(
-            url,
-            applicationContext,
-            object : HttpResponse {
-                override fun httpRespuestaExitosa(response: String) {
-                    val jspoon: Jspoon = Jspoon.create()
-                    val htmlAdapter: HtmlAdapter<Page> =
-                        jspoon.adapter(Page::class.java)
-                    pagina = htmlAdapter.fromHtml(response)
-                    val enlacePagina = "http:${pagina!!.rutaImagenActual}"
-                    Picasso.get().load(enlacePagina).into(model.ivPagina)
-                    //val totalPages = pagina!!.total!!.count() -1
-                    val totalPages = pagina!!.total!!.count() - 1
-                    model.tvPaginaActual.text = resources.getString(
-                        R.string.CurrentPage,
-                        pagina!!.currentPage?.replace("0", ""),
-                        totalPages.toString()
-                    )
-                    initSpinnet(pagina!!)
-                }
-            })
-    }
-
-    fun initSpinnet(pagina: Page) {
-        val numChapters = ArrayList<String>()
-        for (page in pagina.total!!) {
-            numChapters.add(page.numPage!!)
-        }
-        numChapters.removeAt(numChapters.count() - 1)
-        val adapter =
-            ArrayAdapter(applicationContext, android.R.layout.simple_list_item_1, numChapters)
-        model.listPages.adapter = adapter
-        val posicion = pagina.currentPage!!.toInt() - 1
-        model.listPages.post { model.listPages.setSelection(posicion) }
-        model.listPages.onItemSelectedListener = this
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-    }
-
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val seleccionado = pagina?.total!!.first { totalPages ->
-            val numeroSeleccionado = parent?.getItemAtPosition(position)
-            totalPages.numPage == numeroSeleccionado
-        }
-
-        if (pagina!!.currentPage != seleccionado.numPage) {
-            changeImage("http://www.mangatown.com${seleccionado.linkPage!!}")
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    fun initToolbar(titleManga: String) {
-        model.toolbarCapitulo.setTitleTextColor(resources.getColor(R.color.white))
-
-        model.toolbarCapitulo.title = titleManga
-        setSupportActionBar(model.toolbarCapitulo)
-        model.toolbarCapitulo.setNavigationOnClickListener {
-            finish()
-        }
-        val actionbar = supportActionBar
-
-        actionbar?.setDisplayHomeAsUpEnabled(true)
     }
 
 

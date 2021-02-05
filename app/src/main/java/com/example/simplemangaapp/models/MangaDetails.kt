@@ -5,8 +5,6 @@ import pl.droidsonroids.jspoon.annotation.Selector
 
 
 class MangaDetails {
-
-
     @Selector(".detail_info>ul>li:eq(4)")
     var genre: String? = null
 
