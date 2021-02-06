@@ -2,14 +2,10 @@ package com.example.simplemangaapp.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.simplemangaapp.R
-import com.example.simplemangaapp.databinding.ActivityDetalleMangaBinding
 import com.example.simplemangaapp.databinding.ActivityMainBinding
 import com.example.simplemangaapp.models.Manga
 import com.example.simplemangaapp.models.MangaPrincipal
@@ -66,13 +62,6 @@ class MainActivity : AppCompatActivity() {
                     initAdapter()
                 }
             })
-
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_principal, menu)
-        return super.onCreateOptionsMenu(menu)
     }
 
     fun initAdapter(){
@@ -87,7 +76,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             )
-
         model.rvLista.adapter = adaptador
     }
 

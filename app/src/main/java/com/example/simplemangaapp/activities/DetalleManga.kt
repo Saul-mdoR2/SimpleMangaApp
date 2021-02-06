@@ -2,7 +2,6 @@ package com.example.simplemangaapp.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -59,12 +58,6 @@ class DetalleManga : AppCompatActivity() {
                 }
             })
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_detalle, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
 
     private fun initToolbar(titleManga: String) {
         model.toolbarDetalle.setTitleTextColor(resources.getColor(R.color.white))

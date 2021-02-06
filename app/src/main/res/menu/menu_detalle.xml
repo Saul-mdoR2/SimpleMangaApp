@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <item android:title="@string/menu_icon_favorito" android:icon="@drawable/ic_favorito" app:showAsAction="ifRoom" />
-    <item android:title="@string/menu_icon_info" android:icon="@drawable/icono_info" app:showAsAction="ifRoom" />
-</menu>
