@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activities.DetalleManga"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.DetalleManga">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarDetalle"
         style="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -62,14 +62,14 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/tvArtist"
+                        android:id="@+id/tvStatus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/tvStatus"
+                        android:id="@+id/tvArtist"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"

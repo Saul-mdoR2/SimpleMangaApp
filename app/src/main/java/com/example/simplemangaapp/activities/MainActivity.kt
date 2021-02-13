@@ -20,13 +20,13 @@ import pl.droidsonroids.jspoon.Jspoon
 class MainActivity : AppCompatActivity() {
 
     private var adaptador: AdapterCustom? = null
-    private var listaMangas:ArrayList<Manga>? = null
 
     companion object {
         const val TAG = "com.example.simplemangaapp.activities.MainActivity"
     }
 
-    private lateinit var model:ActivityMainBinding
+    private lateinit var model: ActivityMainBinding
+
     @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +42,6 @@ class MainActivity : AppCompatActivity() {
         model.rvLista.setHasFixedSize(true)
         model.rvLista.layoutManager = gridLayoutManager
 
-
-        listaMangas = ArrayList()
-
         val network = Network(this)
 
         network.httpRequest(
@@ -52,25 +49,23 @@ class MainActivity : AppCompatActivity() {
             applicationContext,
             object : HttpResponse {
                 override fun httpRespuestaExitosa(response: String) {
-                   val jspoon:Jspoon = Jspoon.create()
-                   val htmlAdapter:HtmlAdapter<MangaPrincipal> = jspoon.adapter(
-                       MangaPrincipal::class.java)
+                    val jspoon: Jspoon = Jspoon.create()
+                    val htmlAdapter: HtmlAdapter<MangaPrincipal> = jspoon.adapter(
+                        MangaPrincipal::class.java
+                    )
                     val mangaPrincipal: MangaPrincipal = htmlAdapter.fromHtml(response)
-                    for (manga in mangaPrincipal.listMangas!!){
-                        listaMangas!!.add(manga)
-                    }
-                    initAdapter()
+                    initAdapter(mangaPrincipal.listMangas!!)
                 }
             })
     }
 
-    fun initAdapter(){
+    fun initAdapter(listaMangas: ArrayList<Manga>) {
         adaptador =
             AdapterCustom(
-                listaMangas!!, object : ClickListener {
+                listaMangas, object : ClickListener {
                     override fun onClick(vista: View, index: Int) {
                         val intent = Intent(applicationContext, DetalleManga::class.java)
-                        val mangaActual = listaMangas!![index]
+                        val mangaActual = listaMangas[index]
                         intent.putExtra(TAG, mangaActual)
                         startActivity(intent)
                     }

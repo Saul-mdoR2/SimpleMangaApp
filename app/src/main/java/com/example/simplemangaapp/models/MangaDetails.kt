@@ -1,6 +1,5 @@
 package com.example.simplemangaapp.models
 
-import com.example.simplemangaapp.models.Chapter
 import pl.droidsonroids.jspoon.annotation.Selector
 
 
@@ -28,6 +27,6 @@ class MangaDetails {
     var summary: String? = null
 
     @Selector(".chapter_list>li")
-    var listaCapitulos:ArrayList<Chapter>? = null
+    var listaCapitulos: ArrayList<Chapter>? = null
 
 }

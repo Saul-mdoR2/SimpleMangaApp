@@ -10,7 +10,7 @@ import com.example.simplemangaapp.models.Manga
 import com.example.simplemangaapp.R
 import com.squareup.picasso.Picasso
 
-class AdapterCustom(items: ArrayList<Manga>, var listener: ClickListener) :
+class AdapterCustom(items: ArrayList<Manga>, private var listener: ClickListener) :
     RecyclerView.Adapter<AdapterCustom.ViewHolder>() {
 
     private var items: ArrayList<Manga>? = null

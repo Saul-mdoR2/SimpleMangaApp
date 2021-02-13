@@ -72,12 +72,12 @@ class DetalleManga : AppCompatActivity() {
 
 
     fun asignarValores(mangaDetails: MangaDetails) {
-        model.tvGenre.text = mangaDetails.genre?.replace(":", ": ")!!.replace(",", ", ")
-        model.tvAuthor.text = mangaDetails.author?.replace(":", ": ")
-        model.tvStatus.text = mangaDetails.status?.replace(":", ": ")!!.replace("Ongoing", "")
-        model.tvArtist.text = mangaDetails.artist?.replace(":", ": ")
+        model.tvGenre.text = mangaDetails.genre
+        model.tvAuthor.text = mangaDetails.author
+        model.tvStatus.text = mangaDetails.status
+        model.tvArtist.text = mangaDetails.artist
         model.tvType.text =
-            resources.getString(R.string.type, mangaDetails.type?.replace(":", ": "))
+            resources.getString(R.string.type, mangaDetails.type)
         Picasso.get().load(mangaDetails.image).placeholder(R.drawable.manga_cover)
             .into(model.ivManga)
         model.tvSummary.text = mangaDetails.summary?.replace("HIDE", "")
@@ -97,9 +97,9 @@ class DetalleManga : AppCompatActivity() {
     }
 
     private fun initAdaptador(lista: ArrayList<Chapter>) {
-        val linearLayoutManager = GridLayoutManager(this, 3)
+        val gridLayoutManager = GridLayoutManager(this, 3)
         model.rvChapters.setHasFixedSize(true)
-        model.rvChapters.layoutManager = linearLayoutManager
+        model.rvChapters.layoutManager = gridLayoutManager
 
         val adapter = AdapterCustomChapters(lista, object : ClickListenerChapter {
             override fun onClick(vista: View, index: Int) {

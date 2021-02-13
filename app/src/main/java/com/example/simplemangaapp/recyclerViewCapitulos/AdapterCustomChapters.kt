@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.simplemangaapp.models.Chapter
 import com.example.simplemangaapp.R
 
-class AdapterCustomChapters(items: ArrayList<Chapter>, var listenerChapter: ClickListenerChapter) :
+class AdapterCustomChapters(
+    items: ArrayList<Chapter>,
+    private var listenerChapter: ClickListenerChapter
+) :
     RecyclerView.Adapter<AdapterCustomChapters.ViewHolder>() {
 
     private var items: ArrayList<Chapter>? = null
@@ -41,8 +44,8 @@ class AdapterCustomChapters(items: ArrayList<Chapter>, var listenerChapter: Clic
     class ViewHolder(vista: View, listener: ClickListenerChapter) : RecyclerView.ViewHolder(vista),
         View.OnClickListener {
         private var view: View = vista
-         var tvTitleChapter:TextView? = null
-        var tvReleaseDate:TextView? = null
+        var tvTitleChapter: TextView? = null
+        var tvReleaseDate: TextView? = null
 
 
         private var clickListener: ClickListenerChapter? = null
@@ -50,7 +53,7 @@ class AdapterCustomChapters(items: ArrayList<Chapter>, var listenerChapter: Clic
         init {
 
             tvTitleChapter = view.findViewById(R.id.tvTitleChapter) as TextView
-           tvReleaseDate = view.findViewById(R.id.tvReleaseDate) as TextView
+            tvReleaseDate = view.findViewById(R.id.tvReleaseDate) as TextView
             clickListener = listener
 
             vista.setOnClickListener(this)
